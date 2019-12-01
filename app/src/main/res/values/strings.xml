@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CountDownToTet</string>
+
+    <string name="alert_on_back_press">Nhấn một lần nữa để thoát</string>
 </resources>

@@ -1,12 +1,16 @@
 package com.johy.countdowntotet
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.johy.countdowntotet.base.BaseActivity
+import com.johy.countdowntotet.databinding.ActivityMainBinding
+import com.johy.countdowntotet.viewmodels.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(MainViewModel::class.java) {
+    override val layoutId: Int
+        get() = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onUIInitialized() {
+    }
+
+    override fun onWorksInitialized() {
     }
 }
