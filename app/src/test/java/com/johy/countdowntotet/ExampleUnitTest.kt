@@ -1,5 +1,6 @@
 package com.johy.countdowntotet
 
+import com.johy.countdowntotet.defines.Constants
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +13,10 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val current = 1575133200000L
+        val betweenLong = Constants.MONG_1_TET - current
+        val days = betweenLong / Constants.MILLISECONDS_OF_DAY
+
+        assertEquals(55, days)
     }
 }
