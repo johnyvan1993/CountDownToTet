@@ -11,7 +11,10 @@ import com.johy.countdowntotet.defines.Constants
 import java.util.*
 
 open class MainViewModel(app: Application) : BaseViewModel(app) {
-    val text: MutableLiveData<String> by lazy { MutableLiveData<String>().apply { value = "" } }
+    val day: MutableLiveData<String> by lazy { MutableLiveData<String>().apply { value = "" } }
+    val hour: MutableLiveData<String> by lazy { MutableLiveData<String>().apply { value = "" } }
+    val minute: MutableLiveData<String> by lazy { MutableLiveData<String>().apply { value = "" } }
+    val second: MutableLiveData<String> by lazy { MutableLiveData<String>().apply { value = "" } }
 
     private val remainTime: Long
         get() {
@@ -27,8 +30,8 @@ open class MainViewModel(app: Application) : BaseViewModel(app) {
     private fun parseTime(milliseconds: Long): TimeParsed {
         val seconds = milliseconds / 1000
         val timeParsed = TimeParsed(0, 0, 0)
-        timeParsed.hour = calculate(seconds)
-        timeParsed.minute = calculate(seconds - timeParsed.hour * 3600)
+        timeParsed.hour = calculate(if (seconds >= 3600) seconds else 0)
+        timeParsed.minute = calculate(if (seconds >= 60) seconds - timeParsed.hour * 3600 else 0)
         timeParsed.second = calculate(seconds - timeParsed.hour * 3600 - timeParsed.minute * 60)
         return timeParsed
     }
@@ -47,27 +50,19 @@ open class MainViewModel(app: Application) : BaseViewModel(app) {
         }
     }
 
-    private val parseToString: String
-        get() {
-            val textDate = getApplication<App>().getString(R.string.text_date_time)
-            val dayAndTime = dayAndTimeRemain
-            val timeParsed = parseTime(dayAndTime.time)
-            return textDate.replace("[DAY]", dayAndTime.days.toString())
-                .replace(
-                    "[HOUR]",
-                    timeParsed.hour.toString().let { if (it.length == 1) "0$it" else it })
-                .replace(
-                    "[MINUTE]",
-                    timeParsed.minute.toString().let { if (it.length == 1) "0$it" else it })
-                .replace(
-                    "[SECOND]",
-                    timeParsed.second.toString().let { if (it.length == 1) "0$it" else it })
-        }
+    fun parse() {
+        val dayAndTime = dayAndTimeRemain
+        val timeParsed = parseTime(dayAndTime.time)
+        day.value = dayAndTime.days.toString()
+        hour.value = timeParsed.hour.toString().let { if (it.length == 1) "0$it" else it }
+        minute.value = timeParsed.minute.toString().let { if (it.length == 1) "0$it" else it }
+        second.value = timeParsed.second.toString().let { if (it.length == 1) "0$it" else it }
+    }
 
     val mHandler: Handler? = Handler()
     val mRunnable: Runnable? = object : Runnable {
         override fun run() {
-            text.value = parseToString
+            parse()
             mHandler?.postDelayed(this, Constants.ONE_SECOND)
         }
     }

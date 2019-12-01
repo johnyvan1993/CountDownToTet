@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -14,6 +15,17 @@
         android:gravity="center"
         app:buttonGravity="center_vertical"
         app:contentInsetEnd="0dp"
-        app:contentInsetStart="0dp" />
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/thuphap2chungan"
+            android:text="Canh Ty 2020"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
+    </androidx.appcompat.widget.Toolbar>
 
 </com.google.android.material.appbar.AppBarLayout>
