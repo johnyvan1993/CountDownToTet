@@ -84,4 +84,6 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    androidTestImplementation 'tools.fastlane:screengrab:1.0.0'
 }
